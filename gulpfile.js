@@ -92,11 +92,13 @@ gulp.task('connect', function () {
         .use(connect.static('.tmp'))
         .use(connect.directory('app'));
 
-    require('http').createServer(app)
+    var server = require('http').createServer(app)
+        server
         .listen(9000)
         .on('listening', function () {
             console.log('Started connect web server on http://localhost:9000');
         });
+    var io = require('./router/socket.js')(server)
 });
 
 gulp.task('serve', ['connect', 'views', 'styles', 'scripts'], function () {
