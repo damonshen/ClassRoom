@@ -2,18 +2,35 @@
 (function(){
   var socket;
   socket = function(app){
-    var io;
+    var io, completedUser, count;
     io = require('socket.io')(app);
+    completedUser = [];
+    count = function(){
+      var completeCount;
+      completeCount = Object.keys(completedUser).length;
+      return console.log(completeCount);
+    };
     return io.on('connection', function(socket){
-      console.log(io.sockets.sockets.length);
-      console.log('connect');
-      socket.on('disconnect', function(){
-        return console.log('disconnection');
+      console.log(io.sockets.sockets.length + ' users');
+      socket.on('completion', function(userName){
+        console.log(userName);
+        if (in$(userName, completedUser)) {
+          console.log(userName + ' already connect');
+          return count();
+        } else {
+          completedUser.push(userName);
+          return console.log('completion');
+        }
       });
-      return socket.on('completion', function(data){
-        return console.log('completion');
+      return socket.on('disconnect', function(){
+        return console.log('disconnect');
       });
     });
   };
   module.exports = socket;
+  function in$(x, xs){
+    var i = -1, l = xs.length >>> 0;
+    while (++i < l) if (x === xs[i]) return true;
+    return false;
+  }
 }).call(this);

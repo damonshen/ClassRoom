@@ -1,4 +1,4 @@
 socket = io!
 console.log userip
 $ \button .click ->
-  socket.emit \completion, ''
+  socket.emit \completion, userip
