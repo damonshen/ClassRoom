@@ -24,7 +24,8 @@
         label
           cursor: pointer
           col(1/4)
-          &:checked
-            color: orange
-      input
-        col(1/4)
+        input
+          display: none
+          col(1/4)
+          &:checked + label
+            color: red
