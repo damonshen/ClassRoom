@@ -34,7 +34,27 @@ head
         a(href='http://browsehappy.com/') upgrade your browser
         | to improve your experience.
     .container
-      button complete
+      .title Classroom
+      .form
+        .subForm.completeForm
+          .completeValue.countValue 0
+          button complete
+        .subForm.radioForm
+          .radioValues
+            .radioValue 0
+            .radioValue 0
+            .radioValue 0
+            .radioValue 0
+          .label
+            label(for='a') a
+            label(for='b') b
+            label(for='c') c
+            label(for='d') d
+          .radioInputs
+            input(type='radio' name='answer' id='a' value='a')
+            input(type='radio' name='answer' id='b' value='b')
+            input(type='radio' name='answer' id='c' value='c')
+            input(type='radio' name='answer' id='d' value='d')
     //
     script(src='http://l2.io/ip.js?var=userip')
     script(src='/socket.io/socket.io.js')

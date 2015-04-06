@@ -1,2 +1,30 @@
-#main
-  width: 50px
+@import 'jeet'
+
+.container
+  center(960px)
+  .title
+    font-size: 600%
+    text-align: center
+  .form
+    margin-top: 100px
+    background-color: red
+    .subForm
+      col(1/2)
+      text-align: center
+      .countValue
+        font-size: 500% 
+      .radioValue
+        font-size: 200%
+        col(1/4)
+      button
+        margin-left: auto
+        margin-right: auto
+      .label
+        font-size: 200%
+        label
+          cursor: pointer
+          col(1/4)
+          &:checked
+            color: orange
+      input
+        col(1/4)
