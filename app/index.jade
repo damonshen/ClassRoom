@@ -39,22 +39,22 @@ head
       .form
         .subForm.completeForm
           .completeValue.countValue 0
-          button complete
+          #completeBtn.bigBtn complete
         .subForm.radioForm
           .radioValues
-            .radioValue 0
-            .radioValue 0
-            .radioValue 0
-            .radioValue 0
+            #countA.radioValue 0
+            #countB.radioValue 0
+            #countC.radioValue 0
+            #countD.radioValue 0
           .label
             input(type='radio' name='answer' id='a' value='a')
-            label(for='a') a
+            label(for='a') A
             input(type='radio' name='answer' id='b' value='b')
-            label(for='b') b
+            label(for='b') B
             input(type='radio' name='answer' id='c' value='c')
-            label(for='c') c
+            label(for='c') C
             input(type='radio' name='answer' id='d' value='d')
-            label(for='d') d
+            label(for='d') D
           .radioInputs
     //
     script(src='http://l2.io/ip.js?var=userip')

@@ -2,15 +2,35 @@
 (function(){
   var socket;
   socket = function(app){
-    var io, connectedUser, completedUser;
+    var io, connectedUser, completedUser, selectionAnswer;
     io = require('socket.io')(app);
     connectedUser = [];
     completedUser = [];
+    selectionAnswer = {};
     return io.on('connection', function(socket){
-      var refreshCount;
+      var getSelectionCount, refreshCount;
       console.log(io.sockets.sockets.length + ' users');
+      getSelectionCount = function(){
+        var count, k, ref$, v;
+        count = {
+          a: 0,
+          b: 0,
+          c: 0,
+          d: 0
+        };
+        for (k in ref$ = selectionAnswer) {
+          v = ref$[k];
+          count[v]++;
+        }
+        return count;
+      };
       refreshCount = function(){
-        return io.emit('refresh', completedUser.length);
+        var response;
+        response = {};
+        response['completionCount'] = completedUser.length;
+        response['selectionCount'] = getSelectionCount();
+        console.log(getSelectionCount());
+        return io.emit('refresh', response);
       };
       socket.on('completion', function(userName){
         console.log(completedUser);
@@ -20,6 +40,14 @@
           completedUser.push(userName);
           console.log('completion');
         }
+        return refreshCount();
+      });
+      socket.on('selection', function(userAnswer){
+        var user;
+        for (user in userAnswer) {
+          selectionAnswer[user] = userAnswer[user];
+        }
+        console.log(userAnswer);
         return refreshCount();
       });
       return socket.on('disconnect', function(){

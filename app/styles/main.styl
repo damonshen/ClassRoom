@@ -1,6 +1,31 @@
 @import 'jeet'
+@import 'nib'
+
+html, body
+  margin: 0
+  padding: 0
+  height: 100%
+  text-decoration: none
+  background-image: url('../asset/brickwall.png')
+.btn
+  text-align: center
+  border-radius: 50%
+  background-color: #7F543F
+  color: #FFDBCA
+  border: 5px solid #CCAFA2
+  box-sizing: border-box
+  text-shadow: 0 1px 0
+  box-shadow: 3px 3px 1px #e3e3e3
+  &:hover
+    background-color: #FFDBCA
+    color: #7F543F
+  &:active
+    color: #CCAFA2
+    border-color: #7F6E65
 
 .container
+  height: 100%
+  background-image: url('../asset/fabric_of_squares_gray.png')
   font-family: 'Noto Sans', sans-serif;
   center(960px)
   .title
@@ -11,18 +36,25 @@
     background-color: red
     .subForm
       col(1/2)
+      height: 100%
       text-align: center
       .countValue
         font-size: 500% 
       .radioValue
         font-size: 200%
         col(1/4)
-      button
-        margin-left: auto
-        margin-right: auto
+      .bigBtn
+        font-size: 200%
+        @extend .btn
+        height: 200px
+        line-height: 190px
+        center(200px)
       .label
         font-size: 200%
         label
+          @extend .btn
+          height: 100px
+          line-height: 90px
           cursor: pointer
           col(1/4)
         input

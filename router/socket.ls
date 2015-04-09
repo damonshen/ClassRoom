@@ -2,14 +2,30 @@ socket = (app)->
   io = require('socket.io')(app)
   connectedUser = []
   completedUser = []
+  selectionAnswer = {}
 
   io.on \connection, (socket)->
     console.log io.sockets.sockets.length + ' users'
 
+    getSelectionCount = ->
+      count =
+        * a:0
+          b:0
+          c:0
+          d:0
+
+      for k,v of selectionAnswer
+        count[v]++
+      return count
     # emit count result to all sockets
     refreshCount = ->
+      # response infomation
+      response = {}
+      response['completionCount'] = completedUser.length
+      response['selectionCount'] = getSelectionCount!
       # emit to all sockets
-      io.emit \refresh, completedUser.length
+      console.log getSelectionCount!
+      io.emit \refresh, response
 
     # the user's job is completed
     socket.on \completion, (userName)->
@@ -21,6 +37,12 @@ socket = (app)->
         console.log \completion
       # emit the result
       refreshCount!
+    socket.on \selection, (userAnswer)->
+      for user of userAnswer
+        selectionAnswer[user] = userAnswer[user]
+      console.log userAnswer
+      refreshCount!
+
 
     # remove the information of the user after disconnection
     socket.on \disconnect, ->
