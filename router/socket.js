@@ -8,7 +8,7 @@
     completedUser = [];
     selectionAnswer = {};
     return io.on('connection', function(socket){
-      var getSelectionCount, refreshCount;
+      var getSelectionCount, sendRefreshReq;
       console.log(io.sockets.sockets.length + ' users');
       getSelectionCount = function(){
         var count, k, ref$, v;
@@ -24,7 +24,7 @@
         }
         return count;
       };
-      refreshCount = function(){
+      sendRefreshReq = function(){
         var response;
         response = {};
         response['completionCount'] = completedUser.length;
@@ -40,7 +40,7 @@
           completedUser.push(userName);
           console.log('completion');
         }
-        return refreshCount();
+        return sendRefreshReq();
       });
       socket.on('selection', function(userAnswer){
         var user;
@@ -48,7 +48,13 @@
           selectionAnswer[user] = userAnswer[user];
         }
         console.log(userAnswer);
-        return refreshCount();
+        return sendRefreshReq();
+      });
+      socket.on('reset', function(data){
+        console.log('reset');
+        completedUser = [];
+        selectionAnswer = {};
+        return sendRefreshReq();
       });
       return socket.on('disconnect', function(){
         return console.log('disconnect');

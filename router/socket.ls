@@ -18,7 +18,7 @@ socket = (app)->
         count[v]++
       return count
     # emit count result to all sockets
-    refreshCount = ->
+    sendRefreshReq = ->
       # response infomation
       response = {}
       response['completionCount'] = completedUser.length
@@ -36,12 +36,19 @@ socket = (app)->
         completedUser.push userName
         console.log \completion
       # emit the result
-      refreshCount!
+      sendRefreshReq!
     socket.on \selection, (userAnswer)->
       for user of userAnswer
         selectionAnswer[user] = userAnswer[user]
       console.log userAnswer
-      refreshCount!
+      sendRefreshReq!
+
+    socket.on \reset, (data)->
+      console.log \reset
+      # reset the global array
+      completedUser := []
+      selectionAnswer := {}
+      sendRefreshReq!
 
 
     # remove the information of the user after disconnection

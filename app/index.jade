@@ -40,8 +40,10 @@ head
       .form
         .subForm.completeForm
           .completeValue.countValue 0
-          #completeBtn.bigBtn complete
+          #completeBtn.bigBtn Complete
+          #resetBtn.bigBtn Reset
         .subForm.radioForm
+          #selectionChart
           .radioValues
             #countA.radioValue 0
             #countB.radioValue 0
@@ -64,6 +66,9 @@ head
        bower:js
     script(src='bower_components/jquery/dist/jquery.js')
     script(src='bower_components/webcomponentsjs/webcomponents.js')
+    script(src='bower_components/highcharts/highcharts.js')
+    script(src='bower_components/highcharts/highcharts-more.js')
+    script(src='bower_components/highcharts/modules/exporting.js')
     //
        endbower 
     //
