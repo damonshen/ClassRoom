@@ -6,7 +6,6 @@ socket = (app)->
 
   io.on \connection, (socket)->
     console.log io.sockets.sockets.length + ' users'
-
     getSelectionCount = ->
       count =
         * a:0
@@ -27,6 +26,8 @@ socket = (app)->
       console.log getSelectionCount!
       io.emit \refresh, response
 
+    # send initial status to client
+    sendRefreshReq!
     # the user's job is completed
     socket.on \completion, (userName)->
       console.log completedUser
@@ -39,7 +40,7 @@ socket = (app)->
       sendRefreshReq!
     socket.on \selection, (userAnswer)->
       for user of userAnswer
-        selectionAnswer[user] = userAnswer[user]
+        selectionAnswer[user] := userAnswer[user]
       console.log userAnswer
       sendRefreshReq!
 

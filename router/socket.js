@@ -32,6 +32,7 @@
         console.log(getSelectionCount());
         return io.emit('refresh', response);
       };
+      sendRefreshReq();
       socket.on('completion', function(userName){
         console.log(completedUser);
         if (in$(userName, completedUser)) {
