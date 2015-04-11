@@ -51,6 +51,7 @@ $ '.label input' .change ->
   answerRequest[userip] = answer
   console.log answerRequest
   socket.emit \selection, answerRequest
+# get the new count from server and refresh DOM
 socket.on \refresh, (data)->
   console.log data
   completionCount = data['completionCount']

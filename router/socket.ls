@@ -31,17 +31,17 @@ socket = (app)->
     # the user's job is completed
     socket.on \completion, (userName)->
       console.log completedUser
-      if userName in completedUser
-        console.log userName + ' already connect'
+      if socket.id in completedUser
+        console.log socket.id + ' already connect'
       else
-        completedUser.push userName
+        completedUser.push socket.id
         console.log \completion
       # emit the result
       sendRefreshReq!
     socket.on \selection, (userAnswer)->
       for user of userAnswer
-        selectionAnswer[user] := userAnswer[user]
-      console.log userAnswer
+        selectionAnswer[socket.id] := userAnswer[user]
+      console.log socket.id
       sendRefreshReq!
 
     socket.on \reset, (data)->

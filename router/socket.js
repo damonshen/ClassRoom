@@ -35,10 +35,10 @@
       sendRefreshReq();
       socket.on('completion', function(userName){
         console.log(completedUser);
-        if (in$(userName, completedUser)) {
-          console.log(userName + ' already connect');
+        if (in$(socket.id, completedUser)) {
+          console.log(socket.id + ' already connect');
         } else {
-          completedUser.push(userName);
+          completedUser.push(socket.id);
           console.log('completion');
         }
         return sendRefreshReq();
@@ -46,9 +46,9 @@
       socket.on('selection', function(userAnswer){
         var user;
         for (user in userAnswer) {
-          selectionAnswer[user] = userAnswer[user];
+          selectionAnswer[socket.id] = userAnswer[user];
         }
-        console.log(userAnswer);
+        console.log(socket.id);
         return sendRefreshReq();
       });
       socket.on('reset', function(data){
