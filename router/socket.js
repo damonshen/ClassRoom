@@ -34,9 +34,15 @@
       };
       sendRefreshReq();
       socket.on('completion', function(userName){
+        var index;
         console.log(completedUser);
         if (in$(socket.id, completedUser)) {
-          console.log(socket.id + ' already connect');
+          index = completedUser.indexOf(socket.id);
+          console.log(typeof socket.id);
+          console.log(socket.id);
+          console.log(index);
+          completedUser.splice(index, 1);
+          console.log(socket.id + 'remove ' + socket.id + 'from completion list');
         } else {
           completedUser.push(socket.id);
           console.log('completion');
@@ -58,6 +64,15 @@
         return sendRefreshReq();
       });
       return socket.on('disconnect', function(){
+        var index;
+        if (in$(socket.id, completedUser)) {
+          index = completedUser.indexOf(socket.id);
+          console.log(typeof socket.id);
+          console.log(socket.id);
+          console.log(index);
+          completedUser.splice(index, 1);
+        }
+        sendRefreshReq();
         return console.log('disconnect');
       });
     });

@@ -33,8 +33,12 @@ $ \#selectionChart .highcharts do
   ]
 
 # send completion request to server
-$ \#completeBtn .click ->
+$ \#completeBtn .change ->
   socket.emit \completion, userip
+  if $ this .is \:checked
+    console.log \checked
+  else
+    console.log \unchecked
 # reset the count
 $ \#resetBtn .click ->
   socket.emit \reset

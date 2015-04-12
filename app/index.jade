@@ -41,10 +41,8 @@ head
         .subForm.completeForm
           .completeValue.countValue 0
           .switch
-            input(type='checkbox')
-            label C
-          #completeBtn.bigBtn Complete
-          #resetBtn.bigBtn Reset
+            input#completeBtn(type='checkbox')
+            label Complete
         .subForm.radioForm
           #selectionChart
           .radioValues
@@ -53,15 +51,22 @@ head
             #countC.radioValue 0
             #countD.radioValue 0
           .label
-            input(type='radio' name='answer' id='a' value='a')
-            label(for='a') A
-            input(type='radio' name='answer' id='b' value='b')
-            label(for='b') B
-            input(type='radio' name='answer' id='c' value='c')
-            label(for='c') C
-            input(type='radio' name='answer' id='d' value='d')
-            label(for='d') D
-          .radioInputs
+            .optionItem
+              .smallSwitch
+                input(type='radio' name='answer' id='a' value='a')
+                label(for='a') A
+            .optionItem
+              .smallSwitch
+                input(type='radio' name='answer' id='b' value='b')
+                label(for='b') B
+            .optionItem
+              .smallSwitch
+                input(type='radio' name='answer' id='c' value='c')
+                label(for='c') C
+            .optionItem
+              .smallSwitch
+                input(type='radio' name='answer' id='d' value='d')
+                label(for='d') D
     //
     script(src='http://l2.io/ip.js?var=userip')
     script(src='/socket.io/socket.io.js')

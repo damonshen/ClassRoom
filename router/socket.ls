@@ -32,7 +32,12 @@ socket = (app)->
     socket.on \completion, (userName)->
       console.log completedUser
       if socket.id in completedUser
-        console.log socket.id + ' already connect'
+        index = completedUser.indexOf socket.id
+        console.log typeof socket.id
+        console.log socket.id
+        console.log index
+        completedUser.splice index,1
+        console.log socket.id + 'remove '+socket.id + 'from completion list'
       else
         completedUser.push socket.id
         console.log \completion
@@ -54,6 +59,13 @@ socket = (app)->
 
     # remove the information of the user after disconnection
     socket.on \disconnect, ->
+      if socket.id in completedUser
+        index = completedUser.indexOf socket.id
+        console.log typeof socket.id
+        console.log socket.id
+        console.log index
+        completedUser.splice index,1
+      sendRefreshReq!
       console.log \disconnect
 
 
