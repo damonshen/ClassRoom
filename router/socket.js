@@ -2,14 +2,15 @@
 (function(){
   var socket;
   socket = function(app){
-    var io, connectedUser, completedUser, selectionAnswer;
+    var io, connectedUsers, completedUsers, selectedUsers;
     io = require('socket.io')(app);
-    connectedUser = [];
-    completedUser = [];
-    selectionAnswer = {};
+    connectedUsers = [];
+    completedUsers = [];
+    selectedUsers = {};
     return io.on('connection', function(socket){
-      var getSelectionCount, sendRefreshReq;
+      var getSelectionCount, sendRefreshReq, removeFromCompletedUsers, removeFromSelectedUsers;
       console.log(io.sockets.sockets.length + ' users');
+      connectedUsers.push(socket.id);
       getSelectionCount = function(){
         var count, k, ref$, v;
         count = {
@@ -18,7 +19,7 @@
           c: 0,
           d: 0
         };
-        for (k in ref$ = selectionAnswer) {
+        for (k in ref$ = selectedUsers) {
           v = ref$[k];
           count[v]++;
         }
@@ -27,24 +28,31 @@
       sendRefreshReq = function(){
         var response;
         response = {};
-        response['completionCount'] = completedUser.length;
+        response['completionCount'] = completedUsers.length + '/' + connectedUsers.length;
         response['selectionCount'] = getSelectionCount();
         console.log(getSelectionCount());
         return io.emit('refresh', response);
       };
+      removeFromCompletedUsers = function(id){
+        var index;
+        if ((index = completedUsers.indexOf(id)) > -1) {
+          completedUsers.splice(index, 1);
+        }
+        return console.log(completedUsers);
+      };
+      removeFromSelectedUsers = function(id){
+        return delete selectedUsers[id];
+      };
       sendRefreshReq();
       socket.on('completion', function(userName){
         var index;
-        console.log(completedUser);
-        if (in$(socket.id, completedUser)) {
-          index = completedUser.indexOf(socket.id);
-          console.log(typeof socket.id);
-          console.log(socket.id);
-          console.log(index);
-          completedUser.splice(index, 1);
-          console.log(socket.id + 'remove ' + socket.id + 'from completion list');
+        console.log(completedUsers);
+        if (in$(socket.id, completedUsers)) {
+          index = completedUsers.indexOf(socket.id);
+          completedUsers.splice(index, 1);
+          console.log('already complete');
         } else {
-          completedUser.push(socket.id);
+          completedUsers.push(socket.id);
           console.log('completion');
         }
         return sendRefreshReq();
@@ -52,26 +60,24 @@
       socket.on('selection', function(userAnswer){
         var user;
         for (user in userAnswer) {
-          selectionAnswer[socket.id] = userAnswer[user];
+          selectedUsers[socket.id] = userAnswer[user];
         }
+        console.log(selectedUsers);
         console.log(socket.id);
         return sendRefreshReq();
       });
       socket.on('reset', function(data){
         console.log('reset');
-        completedUser = [];
-        selectionAnswer = {};
+        completedUsers = [];
+        selectedUsers = {};
         return sendRefreshReq();
       });
       return socket.on('disconnect', function(){
         var index;
-        if (in$(socket.id, completedUser)) {
-          index = completedUser.indexOf(socket.id);
-          console.log(typeof socket.id);
-          console.log(socket.id);
-          console.log(index);
-          completedUser.splice(index, 1);
-        }
+        index = connectedUsers.indexOf(socket.id);
+        connectedUsers.splice(index, 1);
+        removeFromCompletedUsers(socket.id);
+        removeFromSelectedUsers(socket.id);
         sendRefreshReq();
         return console.log('disconnect');
       });
