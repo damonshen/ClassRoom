@@ -1,6 +1,25 @@
 socket = io!
 console.log userip
 
+
+# get the new count from server and refresh DOM
+socket.on \refresh, (data)->
+  console.log data
+  completionCount = data['completionCount']
+  selectionCount = data['selectionCount']
+  console.log getChartSeries selectionCount
+  dataSeries = getChartSeries selectionCount
+  # update the count value
+  $ \#countA .html selectionCount.a
+  $ \#countB .html selectionCount.b
+  $ \#countC .html selectionCount.c
+  $ \#countD .html selectionCount.d
+  refreshCount completionCount, dataSeries
+
+socket.on \reset, ->
+  console.log \reset
+  $ \#completeBtn .prop \checked, false
+  $ '.label input' .prop \checked, false
 # initialize the chart
 $ \#selectionChart .highcharts do
   chart:
@@ -42,12 +61,8 @@ $ \#completeBtn .change ->
 # reset the count
 $ \#resetBtn .click ->
   socket.emit \reset
-  $ \.completeValue .html 0
-  $ \#countA .html 0
-  $ \#countB .html 0
-  $ \#countC .html 0
-  $ \#countD .html 0
-
+  $ \#completeBtn .prop \checked, false
+  $ '.label input' .prop \checked, false
 
 $ '.label input' .change ->
   answer = $ 'input[name=answer]:checked' .val!
@@ -55,19 +70,6 @@ $ '.label input' .change ->
   answerRequest[userip] = answer
   console.log answerRequest
   socket.emit \selection, answerRequest
-# get the new count from server and refresh DOM
-socket.on \refresh, (data)->
-  console.log data
-  completionCount = data['completionCount']
-  selectionCount = data['selectionCount']
-  console.log getChartSeries selectionCount
-  dataSeries = getChartSeries selectionCount
-  # update the count value
-  $ \#countA .html selectionCount.a
-  $ \#countB .html selectionCount.b
-  $ \#countC .html selectionCount.c
-  $ \#countD .html selectionCount.d
-  refreshCount completionCount, dataSeries
 
 getChartSeries = (selectionObj)->
   series = []

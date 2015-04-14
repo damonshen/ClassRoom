@@ -67,7 +67,7 @@
         return sendRefreshReq();
       });
       socket.on('reset', function(data){
-        console.log('reset');
+        io.emit('reset');
         completedUsers = [];
         selectedUsers = {};
         return sendRefreshReq();

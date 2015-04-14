@@ -60,7 +60,7 @@ socket = (app)->
       sendRefreshReq!
 
     socket.on \reset, (data)->
-      console.log \reset
+      io.emit \reset
       # reset the global array
       completedUsers := []
       selectedUsers := {}

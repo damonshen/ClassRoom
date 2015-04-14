@@ -92,7 +92,12 @@ gulp.task('connect', function () {
         .use(connect.static('app'))
         .use(connect.static('.tmp'))
         .use(connect.directory('app'));
-
+        
+        // set router
+        app.get('/teacher', function(req, res){
+          res.send('hello')
+        })
+        
     var server = require('http').createServer(app);
         server
         .listen(9000)
