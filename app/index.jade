@@ -38,11 +38,13 @@ head
     .container
       .title Complete Status
       .form
+        // completion status form.
         .subForm.completeForm
           .completeValue.countValue 0
           .switch
             input#completeBtn(type='checkbox')
             label Complete
+        // selection status form
         .subForm.radioForm
           #selectionChart
           .radioValues
@@ -50,6 +52,7 @@ head
             #countB.radioValue 0
             #countC.radioValue 0
             #countD.radioValue 0
+          // selection button set
           .label
             .optionItem
               .smallSwitch
@@ -72,8 +75,8 @@ head
     script(src='/socket.io/socket.io.js')
     //
        bower:js
-    script(src='bower_components/jquery/dist/jquery.js')
     script(src='bower_components/webcomponentsjs/webcomponents.js')
+    script(src='bower_components/jquery/dist/jquery.js')
     script(src='bower_components/highcharts/highcharts.js')
     script(src='bower_components/highcharts/highcharts-more.js')
     script(src='bower_components/highcharts/modules/exporting.js')
