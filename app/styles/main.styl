@@ -9,6 +9,7 @@ html, body
   background-image: url('../asset/brickwall.png')
   //z-index for switch button
   z-index: -5
+/*
 .btn
   cursor: pointer
   text-align: center
@@ -24,7 +25,11 @@ html, body
   &:active
     color: #CCAFA2
     border-color: #7F6E65
+*/
 
+
+body
+  display: none
 .container
   //z-index for switch button
   z-index: -5
@@ -48,6 +53,7 @@ html, body
       .radioValue
         font-size: 200%
         col(1/4)
+      /*
       .bigBtn
         @extend .btn
         border-radius: 50%
@@ -56,7 +62,6 @@ html, body
         line-height: 190px
         center(200px)
         margin-bottom: 20px
-        /*
       .label
         font-size: 200%
         label
@@ -139,11 +144,11 @@ html, body
         inset 0px 0px 1px 0px rgba(0,0,0,0.5)
   input:checked
     ~ label
-        color: #7f543f
+        color: #9abb82
         box-shadow:
-          inset 0 5px 3px rgba(127,84,63,0.13),
-          0 5px 8px rgba(127,84,63,0.35),
-          0 3px 10px 4px rgba(127,84,63,0.2)
+          inset 0 5px 3px rgba(154,187,130,0.13),
+          0 5px 8px rgba(154,187,130,0.35),
+          0 3px 10px 4px rgba(154,187,130,0.2)
         :before
           box-shadow: inset 0 10px 10px             rgba(255,84,63,0.5)
           
@@ -201,11 +206,11 @@ html, body
         filter: blur(1px) /* Future-proof */
     input:checked
       ~ label
-          color: #7f543f
+          color: #9abb82
           box-shadow:
-            inset 0 5px 3px rgba(127,84,63,0.13),
-            0 5px 8px rgba(127,84,63,0.35),
-            0 3px 10px 4px rgba(127,84,63,0.2)
+            inset 0 5px 3px rgba(154,187,130,0.13),
+            0 5px 8px rgba(154,187,130,0.35),
+            0 3px 10px 4px rgba(154,187,130,0.2)
           :before
             box-shadow: inset 0 10px 10px             rgba(255,84,63,0.5)
 

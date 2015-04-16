@@ -2,6 +2,15 @@ socket = io!
 console.log userip
 
 
+# show body when the page is loaded completely
+$ window .load ->
+  $ \body .show!
+  $ \body .addClass 'animated fadeIn'
+  resetBtn!
+
+resetBtn = ->
+  $ \#completeBtn .prop \checked, false
+  $ '.label input' .prop \checked, false
 # get the new count from server and refresh DOM
 socket.on \refresh, (data)->
   console.log data
@@ -61,8 +70,7 @@ $ \#completeBtn .change ->
 # reset the count
 $ \#resetBtn .click ->
   socket.emit \reset
-  $ \#completeBtn .prop \checked, false
-  $ '.label input' .prop \checked, false
+  resetBtn!
 
 $ '.label input' .change ->
   answer = $ 'input[name=answer]:checked' .val!
